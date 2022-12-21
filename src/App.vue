@@ -1,30 +1,59 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
 
+<script>
+import AuthLayout from '@/layouts/AuthLayout'
+import MainLayout from '@/layouts/MainLayout'
+
+export default {
+  components: {
+    AuthLayout, MainLayout
+  },
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || 'auth') + '-layout'
+    }
+  }
+}
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-#nav {
-  padding: 30px;
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+a:visited {
+  color: #eee;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+body {
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.error {
+  color: red;
+}
+
+.page {
+  width: 600px;
+  height: 100%;
+  color: #2B2B2B;
+
+  .title {
+    text-align: center;
   }
 }
 </style>
